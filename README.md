@@ -1,2 +1,2 @@
-# data_science_Python
+# Introducción a Data Science con Python
 Un curso de introducción a Data science con Python
