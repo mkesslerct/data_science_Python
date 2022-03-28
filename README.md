@@ -8,10 +8,12 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 
 > Nota: las unidades digitales fueron elaboradas con UPCTforma, la herramienta de autor creada por el [Centro de Producción de Contenidos Digitales](http://cpcd.upct.es/) de la Universidad Politécnica de Cartagena, en el seno de dos proyectos Erasmus Plus, INDIe 2018-1-ES01-KA201-050924 y INDIe4All  2020-1-ES01-KA201-083177, cofinanciados por la Comisión Europea.
 
+> Licencia: los materiales de este curso están distribuidos con la licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.es). 
+
 ## Contenidos
 
 1. [Preliminares: preparación Python para el curso](#preliminares-instalaci%C3%B3n-de-python-y-visual-studio-code-para-el-curso).
-2. Introducción a Python
+2. [Introducción a Python](#Introducci%C3%B3n-a-Python).
 3. Introducción a Pandas
 4. Combinar dataframes
 5. Aplicar transformaciones y calcular resúmenes por grupos
@@ -36,6 +38,11 @@ En el siguiente enlace, podéis encontrar los ficheros de datos necesarios para 
 Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el siguiente fichero `yml` [ids_environment.yml](transparencias/00-preliminares_python_vscode/ids_environment.yml)
 
 
- 
+## Introducción a Python
+
+- [Unidad de introducción a Python, primeros pasos](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/4a6d472072f8484891005cad326a8f34/)
+- [Funciones y métodos en Python](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/8e24b1604bbd4599b06111374c6ad2d0/)
+
+Las transparencias
 
 

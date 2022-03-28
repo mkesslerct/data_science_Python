@@ -1,0 +1,283 @@
+% 
+% Septiembre 2020
+% Author: Mathieu Kessler
+% Universidad Politécnica de Cartagena
+% https://personas.upct.es/perfil/mathieu.kessler
+% 
+% 
+\documentclass[handout,9pt]{beamer}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+ \usepackage[spanish]{babel}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{comma}
+\usepackage{fancybox,color}
+\usepackage[utf8]{inputenc}
+\graphicspath{{fig/}}
+\setbeamertemplate{navigation symbols}{}
+% -----------------------------------------------------------------------------
+% To include multple images sequentially
+% https://codeyarns.com/2010/02/09/how-to-do-image-animation-in-beamer/
+% ------------------------------------------------------------------------------
+ \usepackage{xmpmulti}
+%------------------------------------------------------------------------------
+\usepackage{xcolor}
+\definecolor{mycodecolor}{rgb}{0.65,0.25,0.1}
+\newcommand{\inlinecode}[1]{{\tt \textcolor{mycodecolor}{#1}}}
+\usepackage{pythontex}
+%--------------------
+\usepackage{beamerthemeshadow}
+\usepackage{xmpmulti}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\usepackage{tabularx}
+\renewcommand\tabularxcolumn[1]{b{#1}}
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\E}{\field{E}}
+\newcommand{\R}{\field{R}}
+\newcommand{\N}{\field{N}}
+\newcommand{\Z}{\field{Z}}
+\newcommand{\Q}{\field{Q}}
+\newcommand{\EE}{\field{E}}
+\newcommand{\FF}{\field{F}}
+\newcommand{\GG}{\field{G}}
+\renewcommand{\L}{\field{L}}
+\renewcommand{\P}{\field{P}}
+\newcommand{\LL}{{\mathfrak L}}
+
+% define el folder donde del workspace, para cambiar inglés, ids,
+% etc..
+\newcommand{\workspacefolder}{stat\_labs }
+
+
+\begin{document}
+\title{Más sobre listas y diccionarios}
+
+\author[Mathieu Kessler]{Mathieu Kessler}
+\institute[]{Departamento de Matemática Aplicada y Estadística \\ Universidad Politécnica de Cartagena}
+\date{@kessler\_mathieu}{}%{\href{https://code.visualstudio.com}{https://code.visualstudio.com}}
+\titlegraphic{\includegraphics[width=3cm]{../figures/python_logo}}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Más sobre listas}
+  Vimos que, para acceder a elementos de listas, indexamos su posición
+  (con corchetes)
+{\footnotesize
+  \begin{pyconsole}
+my_list = ['data', 'science', 'analytics', 'statistics', 'mathematics']    
+print(my_list[1])
+\end{pyconsole}
+}
+\pause
+\begin{block}{Cortes (slices)}
+A menudo necesitamos extraer elementos consecutivos de una lista. Para
+ello, usamos los llamados cortes (\textit{slicing}), which toman la forma:
+\begin{pyverbatim}
+my_list[start:stop:step]
+\end{pyverbatim}
+y extrae los elementos desde la posición  {\tt start} hasta la
+posición  {\tt
+  stop} (excluyendo ésta), con un paso de  {\tt step}.
+\begin{itemize}
+\item<3-> Si no se especifica, el tercer parámetro  {\tt step} toma el
+  valor por defecto igual a 1.\\
+  {\footnotesize
+  \pyv{my_list[1:3]} devolverá \pyv{['science', 'analytics']}}
+\item<4-> Si no se especifica, el primer parámetro {\tt start} toma el
+  valor por defecto igual a 0.\\
+  {\footnotesize 
+    \pyv{my_list[:2]} devuelve \pyv{['data', 'science']}
+    }
+\item<5-> Si no se especifica el parámetro {\tt stop}, el corte irá
+  hasta el fina de la lista.\\
+  {\footnotesize
+  \pyv{my_list[1:]} devuelve
+  \pyv{['science', 'analytics', 'statistics', 'mathematics']}
+  }
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Algunas operaciones con listas}
+  \begin{block}{}
+    Las listas, junto con los diccionarios, son tipos de datos
+    esenciales en Python.
+  \end{block} \pause
+  Algunos comandos o métodos básicos para listas: \pause
+    \begin{pyconsole}
+my_list = [2, 1, -0.5, 0.287, 'abc']      
+len(my_list) # devuelve el número de elementos
+my_list[4] = 'cba' # cambia el elemento en la posición 4
+my_list
+del my_list[2] # elimina el elemento en la posición 2, modifica la lista.
+my_list
+my_list.append('joe') # adjunta, modifica la lista.
+my_list
+my_list.insert(1, 9.2) # inserta en posición 1, modifica la lista.
+my_list
+\end{pyconsole}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Cómo hacer una copia de una lista}
+  \begin{block}{}
+  Para hacer una copia de una lista, podríamos pensar en usar el
+  operador de asignación  ``='':
+  \begin{pyconsole}
+my_duplicate = my_list
+\end{pyconsole}
+\pyconc[copy0]{my_list = [2, 1, -0.5, 0.287, 'abc']}
+\pyconc[copy0]{my_duplicate = my_list}
+\begin{pyconsole}[copy0]
+my_duplicate
+\end{pyconsole}
+  \end{block}
+\pause
+Sin embargo, eso implica que {\tt my\_duplicate} que es el mismo
+objeto que  {\tt
+  my\_list}, refiriendo a la misma localización en memoria: si
+modifico una de ellas, la otra resulta modificada también:
+\begin{pyconsole}[copy0]
+my_duplicate[0] = -1.2
+my_duplicate
+my_list
+\end{pyconsole}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Cómo hacer una copia de una lista}
+
+La solución es usar el método \pyv{copy}, que crea un nuevo objeto de
+tipo lista \pause
+  \begin{pyconcode}[copy1]
+my_list = [2, 1, -0.5, 0.287, 'abc']      
+\end{pyconcode}
+\begin{pyconsole}[copy1]
+my_duplicate = my_list.copy()
+my_duplicate[0] = -1.2
+my_duplicate
+my_list
+\end{pyconsole}
+\pause
+Es también posible hacer una copia usando el operador de corte: \pause
+\begin{pyconcode}[copy1]
+my_list = [2, 1, -0.5, 0.287, 'abc']      
+\end{pyconcode}
+\begin{pyconsole}[copy1]
+my_duplicate = my_list[:]
+my_duplicate[0] = -1.2
+my_duplicate
+my_list
+\end{pyconsole}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Iterar sobre diccionarios}
+  \begin{block}{Obtener claves, valores o elementos de un diccionario}
+    Los tres métodos \pyv{keys}, \pyv{values} y \pyv{items} permiten
+    extraer respectivamente las claves, valores o elementos de un
+    diccionario
+  \end{block}
+    \begin{pyconsole}
+personas = {
+   'Pedro': 28,
+   'María': 21,
+   'Marta': 22
+}
+print(personas.keys())
+print(personas.values())
+print(personas.items())
+    \end{pyconsole}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Iterar sobre diccionarios}
+  Podemos iterar sobre un diccionario aprovechando \pyv{values} o
+  \pyv{items}:
+
+  \begin{pyconsole}
+personas = {
+   'Pedro': 28,
+   'María': 21,
+   'Marta': 22
+}
+for nombre, edad in personas.items():
+    print(f'{nombre} tiene {edad} años')
+
+  \end{pyconsole}
+
+  \end{frame}
+  
+
+\begin{frame}[fragile]
+  \frametitle{Comprehensiones de listas o diccionarios}
+Una característica muy conveniente de Python es la construcción de
+``Comprehensiones''de listas o diccionarios (en inglés ``list
+comprehension'', ``dictionary comprehension'').
+
+\begin{block}{Comprehensiones}
+  Permiten construir listas o diccionarios usando el constructor con
+  corchetes, pero aprovechando iteraciones y condiciones en la
+  construcción. Las comprehensiones resultan consisas y legibles a la vez.
+  
+\end{block}
+Por ejemplo, si tenemos una lista con las edades de Pedro, María y
+Marta:
+\begin{pyconsole}
+edades = [28, 21, 22]
+\end{pyconsole}
+Podemos construir una lista con sus edades dentro de 10 años:
+\begin{pyconsole}
+[edad + 10 for edad in edades]
+\end{pyconsole}
+Podemos incluso incorporar una consulta a nuestra comprehensión:
+
+\begin{pyconsole}
+[edad + 10 for edad in edades if edad < 25]
+\end{pyconsole}
+  \end{frame}
+
+  \begin{frame}[fragile]
+  \frametitle{Comprehensiones de listas o diccionarios}
+Podemos proceder de manera similar para diccionarios:
+
+Consideramos de nuevo el diccionario de personas:
+\begin{pyconsole}
+personas = {
+   'Pedro': 28,
+   'María': 21,
+   'Marta': 22
+}
+\end{pyconsole}
+Podemos construir un nuevo diccionario con sus edades dentro de 10 años:
+\begin{pyconsole}
+{nombre: (edad + 10) for nombre, edad in personas.items()}
+\end{pyconsole}
+\begin{block}{Reto:}
+ Si consigo del INE la esperanza de vida adicional en años para cada
+ de sus edades:
+ \begin{pyverbatim}
+esperanza_adicional = {
+     28: 53.4
+     21: 65.6
+     22: 64,5
+}
+ \end{pyverbatim}
+Podríais construir un diccionario con la esperanza de vida de  Pedro, María y
+Marta?
+\end{block}
+\end{frame}
+  
+  
+\end{document}
