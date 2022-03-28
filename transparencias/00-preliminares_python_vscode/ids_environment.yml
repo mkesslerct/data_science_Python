@@ -1,0 +1,12 @@
+name: ids
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - ipykernel
+  - autopep8

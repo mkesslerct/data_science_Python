@@ -31,6 +31,9 @@ En el siguiente enlace, podéis encontrar los ficheros de datos necesarios para 
 
 ## Preliminares: instalación de Python y Visual Studio Code para el curso.
 
+[Unidad con instrucciones sobre preparación de Python, Anaconda y Visual Studio Code](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/962daf11bddf469a94882d702aa95b17/)
+
+Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el siguiente fichero `yml` [ids_environment.yml](transparencias/00-preliminares_python_vscode/ids_environment.yml)
 
 
  
