@@ -25,7 +25,13 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 
 ## Datos necesarios para los trabajos y algunos ejemplos
 
-En el siguiente enlace, podéis encontrar los ficheros de datos necesarios para los trabajos y los ejemplos. Los guardaréis en una carpeta `data` en vuestro directorio de trabajo.
+En el siguiente enlace, podéis encontrar los ficheros de datos necesarios para los trabajos y los ejemplos. Podéis descargarlos a medida que los vayáis necesitando y guardar en una carpeta `data` en vuestro directorio de trabajo. También podéis indicar la url del conjunto a la hora de cargar el conjunto de datos con `read_csv`de `pandas`. Si optáis por esta segunda opción, tenéis que usar la url correspondiente a la versión "raw" del fichero en Github.
+
+[Carpeta data](data/)
+
+## Preliminares: instalación de Python y Visual Studio Code para el curso.
+
+
 
  
 
