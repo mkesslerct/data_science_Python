@@ -10,7 +10,7 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 
 ## Contenidos
 
-1. Preliminares: preparación Python para el curso.
+1. [Preliminares: preparación Python para el curso](#preliminares-instalaci%C3%B3n-de-python-y-visual-studio-code-para-el-curso).
 2. Introducción a Python
 3. Introducción a Pandas
 4. Combinar dataframes
