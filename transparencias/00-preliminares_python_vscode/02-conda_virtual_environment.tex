@@ -1,0 +1,181 @@
+% 
+% Septiembre 2020
+% Author: Mathieu Kessler
+% Universidad Politécnica de Cartagena
+% https://personas.upct.es/perfil/mathieu.kessler
+% 
+% 
+\documentclass[9pt]{beamer}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+\usepackage[spanish]{babel}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{comma}
+\usepackage{fancybox,color}
+\usepackage[utf8]{inputenc}
+\graphicspath{{../figures/}}
+\setbeamertemplate{navigation symbols}{}
+% \usepackage[colorlinks=true]{hyperref}
+\usepackage{xcolor}
+\definecolor{mycodecolor}{rgb}{0.65,0.25,0.1}
+
+\usepackage{listings}
+\newcommand{\inlinecode}[2][Python]{\lstinline[language=#1, basicstyle=\color{mycodecolor}]{#2}}
+\usepackage{beamerthemeshadow}
+\usepackage{xmpmulti}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\usepackage{tabularx}
+\renewcommand\tabularxcolumn[1]{b{#1}}
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\E}{\field{E}}
+\newcommand{\R}{\field{R}}
+\newcommand{\N}{\field{N}}
+\newcommand{\Z}{\field{Z}}
+\newcommand{\Q}{\field{Q}}
+\newcommand{\EE}{\field{E}}
+\newcommand{\FF}{\field{F}}
+\newcommand{\GG}{\field{G}}
+\renewcommand{\L}{\field{L}}
+\renewcommand{\P}{\field{P}}
+\newcommand{\LL}{{\mathfrak L}}
+
+
+\begin{document}
+\lstset{language=Python}
+\title{Crear un entorno virtual con  \inlinecode{conda}}
+
+\author[Mathieu Kessler]{Mathieu Kessler}
+\institute[]{Departamento de Matemática Aplicada y Estadística \\ Universidad Politécnica de Cartagena}
+%% \date{\textcolor{blue}{Granada, 5 de abril de 2019}}
+\titlegraphic{\includegraphics[width=6cm]{python_anaconda}}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Qué es un entorno virtual?}
+  \begin{block}{}
+    Un entorno virtual permite crear un espacio de trabajo aislado
+    para un proyecto. Se realiza para evitar conflictos de versiones de
+    paquetes entre diferentes proyectos. Quizás uno de vuestro
+    proyecto depende de una versión anterior de un paquete que otro
+    proyecto más reciente. Si los dos proyectos se apoyan en el
+    entorno {\tt ``base''} de conda, la actualización del paquete para un
+    proyecto podría implicar que el otro dejara de funcionar. 
+    
+  \end{block}\pause
+
+  La solución es crear un entorno virtual para un proyecto, que usará
+  su propia versión de Python y de las librerías que necesita.\\
+  \pause
+
+  \begin{block}{Entornos virtuales en conda}
+    Existen varios gestores de entornos virtuales. Conda tiene el
+    suyo propio, la documentación está disponible en el
+    \href{https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html}{documento
+      Anaconda sobre gestión entornos.}
+    
+  \end{block}
+\end{frame}
+\begin{frame}
+  \frametitle{Crear un entorno virtual en conda}
+  \begin{block}{Cinco puntos básicos}
+    \begin{itemize}
+    \item La creación de un entorno virtual se realiza desde la
+      consola de Anaconda.
+    \item El comando básico para crear un entorno virtual es
+      \inlinecode[bash]{conda create --name myenv} donde {\tt myenv}
+      es el nombre que habéis escogido para vuestro entorno virtual.
+    \item Una vez creado, tenéis que activarlo si queréis trabajar con
+      él desde la consola de Anaconda.
+    \item En Visual Studio Code, puede asignar un entorno virtual a un
+      workspace y todos los ficheros python de este proyecto se
+      ejecutarán en este entorno.
+    \item Podéis crear un entorno virtual ``bare''  \inlinecode{
+        conda create --name myenv python}, activarlo y después instalar los
+      paquetes necesarios para vuestro proyecto con  \inlinecode[bash]{conda install},
+      o podéis directamente especificar los paquetes requeridos en el
+      momento de la creación del entorno.
+    \end{itemize}    
+  \end{block}\pause
+  Vamos a crear el entorno virtual \inlinecode[bash]{ids} para la
+  asignatura, con las librerías que necesitaremos y veremos cómo
+  asignarlo a nuestro workspace en Visual Studio Code.
+\end{frame}
+\begin{frame}
+  \frametitle{Creando el entorno}
+  Vamos a crear el entorno virtual e instalar directamente los
+  paquetes relevantes.
+  \begin{block}{Instalación de paquetes y su gestión en  conda}
+    El gestor de paquetes de conda los descarga desde 
+    \href{https://anaconda.org/search}{Anaconda cloud}, donde la
+    compañia Anaconda y otras mantienen versiones binarias para
+    diferentes sistemas operativos.
+  \end{block}\pause
+  Vamos a instalar los siguientes paquetes para IDS:\\ \smallskip
+  \begin{tabular}[h]{ll}
+    $\bullet$ {\tt numpy}&\onslide<3->{Un paquete para la computación científica. \href{https://numpy.org/}{https://numpy.org/}}\\[0.2cm]
+
+                         % \verb{@numpy_team}}\\
+    % $\bullet$ {\tt scipy} & \onslide<4->{\parbox{8.5cm}{Rutinas numéricas: integración, interpolación,
+    %                         optimización, algebra lineal y estadística
+    %                         \href{https://www.scipy.org}{https://www.scipy.org}}}\\[0.3cm]
+    
+    $\bullet$ {\tt matplotlib} & \onslide<4->{\parbox{8.5cm}{Librería
+                                 para crear visualizaciones.
+                                 \href{https://matplotlib.org/}{https://matplotlib.org/}}}\\[0.3cm]
+    
+    $\bullet$ {\tt pandas} & \onslide<5->{\parbox{8.5cm}{Análisis y
+                             manipulación de datos \href{https://pandas.pydata.org/}{https://pandas.pydata.org/}                           
+                             }}\\[.2cm]
+    $\bullet$ {\tt scikit-learn} &
+                                   \onslide<6->{\parbox{8.5cm}{Algoritmos
+                                   de machine learning \href{https://scikit-learn.org/stable/}{https://scikit-learn.org/stable/}                           
+                                   }}\\[.2cm]
+    
+    $\bullet$ {\tt ipykernel} &\onslide<7->{\parbox{8.5cm}{
+                              Proporciona un entorno interactivo para
+                                blocs de notas Jupyter.
+                              }}
+  \end{tabular}\onslide<8->{
+  \begin{block}{}
+    Es recomendable instalar a la vez  todos los paquetes que pensamos que vamos
+    a utilizar. La instalación posterior de un paquete puede dar lugar a
+    conflictos de versiones. 
+    
+  \end{block}
+  }
+\end{frame}
+\begin{frame}
+  \frametitle{Creando el entorno}
+  Instalaremos también un paquete para el auto-formateo del código.\\ \medskip
+  \begin{tabular}[h]{ll}
+    $\bullet$ {\tt autopep8} & \onslide<2->{\parbox{8.5cm}{Un
+                               formateador que busca cumplir con el
+                               estilo de código PEP8}}
+  \end{tabular}\\ \bigskip
+  \onslide<3->{En la consola de Anaconda, teclead (en una línea)
+    \begin{block}{}
+      {\tt conda create --name ids -c conda-forge python numpy pandas}\\
+      {\tt \hphantom{conda create --name }
+        scikit-learn matplotlib ipykernel autopep8}
+    \end{block}
+  }\onslide<4->{
+  Otra opción más sencilla es descargar del Aula virtual el fichero de
+  requerimientos ids\_environment.yml y en la consola de Anaconda escribir
+  \begin{block}{}
+    {\tt conda env create -f ids\_environment.yml}
+  \end{block}
+}\onslide<5->{
+\begin{block}{Para comprobar que se ha creado correctamente}
+  En la consola de Anaconda, activad el entorno con {\tt conda
+    activate ids} y a continuación, obtened la lista de paquetes con
+  {\tt conda list}, comprobando que están los requeridos.
+\end{block}
+}
+\end{frame}
+\end{document}
