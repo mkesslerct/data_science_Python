@@ -40,16 +40,16 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
 
 ## Introducción a Python
 
-## Unidades de aprendizaje
+### Unidades de aprendizaje
 - [Unidad de introducción a Python, primeros pasos](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/4a6d472072f8484891005cad326a8f34/)
 - [Funciones y métodos en Python](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/8e24b1604bbd4599b06111374c6ad2d0/)
 - [Más sobre listas y diccionarios](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/7ac3caf462e34991beab4eb50393f0ea/)
 
-## Transparencias asociadas a las unidades:
+### Transparencias asociadas a las unidades:
 - [Introducción a Python, primeros pasos & funciones y métodos](transparencias/03-introduccion_python/01-python_introduccion.pdf)
 - [Más sobre listas y dicccionarios](transparencias/03-introduccion_python/02-mas_sobre_listas_diccionarios.pdf)
 
-## Para practicar:
+### Para practicar:
 - [Ejercicios para practicar](trabajos/03-introduccion_python/01-ejercicios.pdf)
 
 
