@@ -15,7 +15,7 @@
 \usepackage{comma}
 \usepackage{fancybox,color}
 \usepackage[utf8]{inputenc}
-\graphicspath{{fig/}}
+\graphicspath{{../figures/}}
 \setbeamertemplate{navigation symbols}{}
 % -----------------------------------------------------------------------------
 % To include multple images sequentially
@@ -58,7 +58,7 @@
 \author[Mathieu Kessler]{Mathieu Kessler}
 \institute[]{Departamento de Matemática Aplicada y Estadística \\ Universidad Politécnica de Cartagena}
 \date{@kessler\_mathieu}{}%{\href{https://code.visualstudio.com}{https://code.visualstudio.com}}
-\titlegraphic{\includegraphics[width=3cm]{../figures/python_logo}}
+\titlegraphic{\includegraphics[width=3cm]{python_logo}}
 
 \begin{frame}
   \titlepage
@@ -284,7 +284,7 @@ print('El resultado final is: ' + str(suma_final))
       de $n$, que ha introducido el usuario.
     \item Añadid a vuestro programa las instrucciones para imprimir el siguiente patrón:
       \begin{center}
-        \includegraphics[width=5cm]{../figures/for_exercises_01}
+        \includegraphics[width=5cm]{for_exercises_01}
       \end{center}
     \end{enumerate}  
   \end{frame}
@@ -351,7 +351,7 @@ if (n > 0):
   \end{itemize}\pause
   Example:\vspace{-1cm}
   \begin{center}
-    \multiinclude[format=png, graphics={width=7cm}]{../figures/function_example}
+    \multiinclude[format=png, graphics={width=7cm}]{function_example}
   \end{center}\pause\vspace{-0.5cm}
   
 Una vez definida se puede invocar la función en un programa o en la consola:
@@ -420,7 +420,7 @@ def calculate_discount(price, reduction):
 \item<5-> Usar docstrings permite al usuario obtener información vía
   \pyv{help}
   \begin{center}
-\includegraphics[width=8cm]{../figures/help_function_es}
+\includegraphics[width=8cm]{help_function_es}
 \end{center}
 
 \end{itemize}
@@ -596,7 +596,7 @@ x = np.arange(10)
 print(dir(x))
 \end{pyverbatim}
   \begin{center}
-    \includegraphics[width=10cm]{../figures/dir_ndarray}
+    \includegraphics[width=10cm]{dir_ndarray}
   \end{center}
   Los métodos que empiezan y acaban con un doble  ``\_'' se llaman
   ``dunder'' (double underscore)  methods y son para uso interno del módulo.
