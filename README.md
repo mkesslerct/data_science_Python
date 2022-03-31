@@ -8,6 +8,8 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 
 > Nota: las unidades digitales fueron elaboradas con UPCTforma, la herramienta de autor creada por el [Centro de Producción de Contenidos Digitales](http://cpcd.upct.es/) de la Universidad Politécnica de Cartagena, en el seno de dos proyectos Erasmus Plus, INDIe 2018-1-ES01-KA201-050924 y INDIe4All  2020-1-ES01-KA201-083177, cofinanciados por la Comisión Europea.
 
+> Para profesores: en este repositorio podréis encontrar también los ficheros fuentes de los documentos. En el directorio [utilidades](utilidades/readme.md), están algunos scripts útiles para generar entregables etc...
+
 > Licencia: los materiales de este curso están distribuidos con la licencia Atribución-CompartirIgual 4.0 Internacional de Creative Commons. [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.es). 
 
 ## Contenidos
