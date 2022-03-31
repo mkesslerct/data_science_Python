@@ -16,7 +16,7 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 
 1. [Preliminares: preparación Python para el curso](#preliminares-instalaci%C3%B3n-de-python-y-visual-studio-code-para-el-curso).
 2. [Introducción a Python](#Introducci%C3%B3n-a-Python).
-3. [Introducción a Pandas](#Introducci%C3%B3n-a-Pandas)
+3. [Introducción a Pandas](#Introducci%C3%B3n-a-Pandas).
 4. Combinar dataframes
 5. Aplicar transformaciones y calcular resúmenes por grupos
 6. Visualizar datos con gráficas en Matplotlib
@@ -62,8 +62,8 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
 - [Unidad de introducción a pandas](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/8b009111011e41cdbfee3c94485b1069/)
 
 ### Transparencias asociadas a las unidades:
-- [Introducción a pandas](transparencias/03-introduccion_pandas/01-introduccion_pandas.pdf)
-- [Seleccionar filas y/o columnas en dataframes](transparencias/03-introduccion_pandas/02-acceso_columnas_filas.pdf)
+- [Introducción a pandas](transparencias/04-introduccion_pandas/01-introduccion_pandas.pdf)
+- [Seleccionar filas y/o columnas en dataframes](transparencias/04-introduccion_pandas/02-acceso_columnas_filas.pdf)
 
 ### Para practicar:
 - Introducción a pandas:
