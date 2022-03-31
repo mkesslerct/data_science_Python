@@ -68,7 +68,7 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
 ### Para practicar:
 - Introducción a Pandas:
   - [Bloc de notas](trabajos/04-introduccion_pandas/01-introduccion_pandas_handout.ipynb)
-  - [Salidas esperadas](trabajos/04-introduccion_pandas/01-introduccion_pandas_output.html)
+  - [Salidas esperadas](trabajos/04-introduccion_pandas/01-introduccion_pandas_output.md)
 - Seleccionar filas y columnas:
   - [Bloc de notas](trabajos/04-introduccion_pandas/02-seleccionar_filas_columnas_handout.ipynb)
   - [Salidas esperadas](trabajos/04-introduccion_pandas/02-seleccionar_filas_columnas_output.html)
@@ -94,4 +94,8 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
 - Combinar dataframes con merge:
   - [Bloc de notas](trabajos/05-concat_merge/01-merge_handout.ipynb)
   - [Salidas esperadas](trabajos/05-concat_merge/01-merge_output.html)
+
+
+
+
 
