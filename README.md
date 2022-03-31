@@ -17,7 +17,7 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 1. [Preliminares: preparación Python para el curso](#preliminares-instalaci%C3%B3n-de-python-y-visual-studio-code-para-el-curso).
 2. [Introducción a Python](#Introducci%C3%B3n-a-Python).
 3. [Introducción a Pandas](#Introducci%C3%B3n-a-Pandas).
-4. Combinar dataframes
+4. [Combinar dataframes](#combinar-dataframes)
 5. Aplicar transformaciones y calcular resúmenes por grupos
 6. Visualizar datos con gráficas en Matplotlib
 7. Regresión
@@ -90,8 +90,8 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
 ### Para practicar:
 - Concatenar dataframes:
   - [Bloc de notas](trabajos/05-concat_merge/01-concat_handout.ipynb)
-  - [Salidas esperadas](trabajos/05-concat_merge/01-concat_slides.ipynb)
+  - [Salidas esperadas](trabajos/05-concat_merge/01-concat_output.html)
 - Combinar dataframes con merge:
   - [Bloc de notas](trabajos/05-concat_merge/01-merge_handout.ipynb)
-    - [Salidas esperadas](trabajos/05-concat_merge/01-merge_slides.ipynb)
+  - [Salidas esperadas](trabajos/05-concat_merge/01-merge_output.html)
 
