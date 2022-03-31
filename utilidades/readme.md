@@ -1,7 +1,7 @@
 # Diferentes utilidades para generar entregables, transparencias etc..
 Esta carpeta contiene distintos scripts de utilidades, que uso para generar entregables, o las transparencias HTML a partir de un bloc de notas Jupyter.
 
-## Generar un entregable de trabajo, a partir del bloc de notas Jupyter.
+## Generar un entregable de trabajo a partir del bloc de notas Jupyter.
 
 Los enunciados de trabajos entregables consisten siempre de dos elementos:
 1. Un bloc de notas de nombre tipo `trabajo_handout.ipynb` donde los alumnos tienen celdas de código vacías o parcialmente vacías si hay alguna indicación. Tienen que entregar este bloc de notas completado.
@@ -31,4 +31,4 @@ El script que se encarga de generar estos entregables es `generate_handout.py` q
 python3 generate_handout.py ../trabajos/trabajo.ipynb
 ```
 
-> Nota: se debe ejecutar este comanda en un entorno donde esté instalado ipykernel, por ejemplo el base de conda, o el entorno `ids` del curso.
+> Nota: se debe ejecutar este comando en un entorno donde esté instalado ipykernel, por ejemplo el base de conda, o el entorno `ids` del curso.
