@@ -73,4 +73,25 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
   - [Bloc de notas](trabajos/04-introduccion_pandas/02-seleccionar_filas_columnas_handout.ipynb)
   - [Salidas esperadas](trabajos/04-introduccion_pandas/02-seleccionar_filas_columnas_output.html)
 
+## Combinar dataframes
+
+### Unidades de aprendizaje
+- [Combinar dataframes: concat y merge](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/390f81126dc746358ba53f61a65e8015/)
+
+### Transparencias asociadas a las unidades:
+- [Concatenar dataframes por filas o por columnas](transparencias/04-concat_merge/01a-concat-slides.slides.html)
+- [Concatenar dataframes por filas o por columnas con etiquetas repetidas](transparencias/04-concat_merge/01b-concat-slides.slides.html)
+- [Qué pasa si quiero unir por filas dos dataframes que no tienen las mismas columnas](transparencias/04-concat_merge/01c-concat-slides.slides.html)
+- [Combinar dataframes usando merge](transparencias/04-concat_merge/02a-merge-slides.slides.html)
+- [Cómo especificar qué columnas usar al combinar dataframes](transparencias/04-concat_merge/02b-merge-slides.slides.html)
+- [Parámetro `indicator` en `merge`](transparencias/04-concat_merge/02c-merge-slides.slides.html)
+- [Representación gráfica de los distintos tipos de `merge`](transparencias/04-concat_merge/03-merge_schemas.pdf)
+
+### Para practicar:
+- Concatenar dataframes:
+  - [Bloc de notas](trabajos/05-concat_merge/01-concat_handout.ipynb)
+  - [Salidas esperadas](trabajos/05-concat_merge/01-concat_slides.ipynb)
+- Combinar dataframes con merge:
+  - [Bloc de notas](trabajos/05-concat_merge/01-merge_handout.ipynb)
+    - [Salidas esperadas](trabajos/05-concat_merge/01-merge_slides.ipynb)
 
