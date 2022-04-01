@@ -5,10 +5,49 @@ the handouts have to be generated.
 """
 
 import json
-from os import path
 import os
+import pathlib
 import re
 import sys
+
+from typing import Dict
+
+USAGE = (
+    f"Usage: {sys.argv[0]} <ipynb_file>"
+)
+
+args_pattern = re.compile(
+    r"""
+    ^
+    (
+        (--(?P<HELP>help).*)|
+        ((?P<FILE>(?:.+?\.ipynb))\s) 
+        ((?:--from)\s(?P<FROM>.*?)\s)
+        ((?:--to)\s(?P<TO>.*?))
+    )
+    $
+""",
+    re.VERBOSE,
+)
+
+args_pattern = re.compile(
+    r"""
+    ^
+    (
+        (--(?P<HELP>help).*)|
+        (?P<FILE>(?:.+?\.ipynb)) 
+    )
+    $
+""",
+    re.VERBOSE,
+)
+
+def parse(arg_line: str) -> Dict[str, str]:
+    args: Dict[str, str] = {}
+    if match_object := args_pattern.match(arg_line):
+        args = {k: v for k, v in match_object.groupdict().items()
+                if v is not None}
+    return args
 
 
 def prepare_handout(nb_file):
@@ -59,23 +98,55 @@ def clear_output(nb):
     return nb
 
 
+def main():
+    args = parse(" ".join(sys.argv[1:]))
+    if not args:
+        raise SystemExit(USAGE)
+    if args.get("HELP"):
+        print(USAGE)
+        return
+    for k, v in args.items():
+        print(f"key {k}, value: {v}")
+    
+    file_path = pathlib.Path(args["FILE"])
+
+
+    nb = prepare_handout(file_path)
+    nb_output = file_path.parent / (file_path.stem + "_output.ipynb")
+    print(f"Nb with output without solutions: {nb_output}")
+    with open(nb_output, "w", encoding="utf-8") as outfile:
+        json.dump(nb, outfile, ensure_ascii=False)
+    os.system(f"jupyter nbconvert --to markdown {nb_output}")
+    os.system(f"jupyter nbconvert --to html {nb_output}")
+    os.remove(nb_output)
+    nb_handout = file_path.parent / (file_path.stem + "_handout.ipynb")
+    print(f"Nb without output for handing out: {nb_handout}")
+    with open(nb_handout, "w", encoding="utf-8") as outfile:
+        json.dump(clear_output(nb), outfile, ensure_ascii=False)
+
+
+
 if __name__ == "__main__":
-    try:
-        arg = sys.argv[1:]
-    except IndexError:
-        raise SystemExit(f"Usage: {sys.argv[0]} <nb file names>")
-    files = list(arg)
+    main()
 
 
-    for f in files:
-        nb = prepare_handout(f)
-        nb_output = path.splitext(f)[0] + "_output.ipynb"
-        print(f"Nb with output without solutions: {nb_output}")
-        with open(nb_output, "w", encoding="utf-8") as outfile:
-            json.dump(nb, outfile, ensure_ascii=False)
-        os.system(f"jupyter nbconvert --to html {nb_output}")
-        os.remove(nb_output)
-        nb_handout = path.splitext(f)[0] + "_handout.ipynb"
-        print(f"Nb without output for handing out: {nb_handout}")
-        with open(nb_handout, "w", encoding="utf-8") as outfile:
-            json.dump(clear_output(nb), outfile, ensure_ascii=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
