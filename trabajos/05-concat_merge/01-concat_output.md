@@ -399,29 +399,6 @@ Qué tipo de objeto es el resultado? Transformadlo en un DataFrame de una fila y
 ```
 
 
-    ---------------------------------------------------------------------------
-
-    NameError                                 Traceback (most recent call last)
-
-    Input In [4], in <module>
-          1 # Completar aquí
-    ----> 2 mompean.loc[(mompean['dia_semana'] == d) & (mompean['hora'] == h), :].mean().to_frame().T
-
-
-    NameError: name 'd' is not defined
-
-
-Escribid un bucle que calcule para cada hora y día de la semana, el valor promedio de los distintos niveles de los indicadores de calidad del aire de `mompean` y que los vaya uniendo en un DataFrame
-
-
-```python
-# Completar aquí
-
-# --------------------
-
-```
-
-
 
 
 <div>
@@ -449,165 +426,30 @@ Escribid un bucle que calcule para cada hora y día de la semana, el valor prome
       <th>NOX</th>
       <th>PM10</th>
       <th>Ruido</th>
-      <th>dia</th>
-      <th>hora</th>
       <th>dia_semana</th>
+      <th>hora</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>7.562380</td>
-      <td>25.581574</td>
-      <td>7.512287</td>
-      <td>55.924303</td>
-      <td>37.084453</td>
-      <td>22.472486</td>
-      <td>57.027624</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>6.180077</td>
-      <td>23.312261</td>
-      <td>7.435606</td>
-      <td>53.521912</td>
-      <td>32.668582</td>
-      <td>20.853890</td>
-      <td>55.419890</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>5.517241</td>
-      <td>21.136015</td>
-      <td>7.361742</td>
-      <td>51.169323</td>
-      <td>29.501916</td>
-      <td>20.206831</td>
-      <td>53.508287</td>
-      <td>0.0</td>
-      <td>2.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>4.126437</td>
-      <td>17.105364</td>
-      <td>7.229167</td>
-      <td>50.878486</td>
-      <td>23.373563</td>
-      <td>18.842505</td>
-      <td>52.569061</td>
-      <td>0.0</td>
-      <td>3.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>3.624521</td>
-      <td>14.111111</td>
-      <td>7.143939</td>
-      <td>50.537849</td>
-      <td>19.616858</td>
-      <td>17.838710</td>
-      <td>51.806630</td>
-      <td>0.0</td>
-      <td>4.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>5.676245</td>
-      <td>18.860153</td>
-      <td>8.581132</td>
-      <td>77.117296</td>
-      <td>27.421456</td>
-      <td>22.644612</td>
-      <td>60.044199</td>
+      <td>6.971319</td>
+      <td>17.288719</td>
+      <td>7.856874</td>
+      <td>70.305556</td>
+      <td>27.862333</td>
+      <td>22.290566</td>
+      <td>60.154696</td>
       <td>6.0</td>
-      <td>19.0</td>
-      <td>6.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>6.545977</td>
-      <td>20.641762</td>
-      <td>8.330189</td>
-      <td>73.753479</td>
-      <td>30.588123</td>
-      <td>22.718336</td>
-      <td>60.364641</td>
-      <td>6.0</td>
-      <td>20.0</td>
-      <td>6.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>7.767754</td>
-      <td>23.921305</td>
-      <td>7.835539</td>
-      <td>68.711155</td>
-      <td>35.700576</td>
-      <td>23.905303</td>
-      <td>60.569061</td>
-      <td>6.0</td>
-      <td>21.0</td>
-      <td>6.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>8.694818</td>
-      <td>26.278311</td>
-      <td>7.667297</td>
-      <td>63.896414</td>
-      <td>39.462572</td>
-      <td>23.990512</td>
-      <td>59.972376</td>
-      <td>6.0</td>
-      <td>22.0</td>
-      <td>6.0</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>9.168906</td>
-      <td>27.220729</td>
-      <td>7.655955</td>
-      <td>59.272908</td>
-      <td>41.084453</td>
-      <td>23.339658</td>
-      <td>58.375691</td>
-      <td>6.0</td>
-      <td>23.0</td>
-      <td>6.0</td>
+      <td>12.0</td>
     </tr>
   </tbody>
 </table>
-<p>168 rows × 10 columns</p>
 </div>
 
 
 
-El realizar un bucle que lleva a cabo un `concat` en cada iteración tal como se ha hecho anteriormente no es recomendable porque `concat` crea cada vez una copia nueva del DataFrame lo que no es nada óptimo en cuanto a rendimiento. Es mejor construir un iterable con todos los DataFrames, y luego usar `concat` solo una vez sobre el iterable. 
-
-Usando una "list comprehension", construir una lista que contenga todos los DataFrame relevantes del apartado anterior (medias para cada hora y día de la semana). A continuación concatenarlos para obtener el DataFrame del apartado anterior
+Escribid un bucle que calcule para cada hora y día de la semana, el valor promedio de los distintos niveles de los indicadores de calidad del aire de `mompean` y que los vaya uniendo en un DataFrame
 
 
 ```python
@@ -789,12 +631,16 @@ Usando una "list comprehension", construir una lista que contenga todos los Data
 
 
 
+El realizar un bucle que lleva a cabo un `concat` en cada iteración tal como se ha hecho anteriormente no es recomendable porque `concat` crea cada vez una copia nueva del DataFrame lo que no es nada óptimo en cuanto a rendimiento. Es mejor construir un iterable con todos los DataFrames, y luego usar `concat` solo una vez sobre el iterable. 
+
+Usando una "list comprehension", construir una lista que contenga todos los DataFrame relevantes del apartado anterior (medias para cada hora y día de la semana). A continuación concatenarlos para obtener el DataFrame del apartado anterior
+
 
 ```python
-pd.concat(
-    g.mean().to_frame().T 
-    for _, g in mompean.groupby(["dia_semana", "hora"])
-)
+# Completar aquí
+
+# --------------------
+
 ```
 
 
