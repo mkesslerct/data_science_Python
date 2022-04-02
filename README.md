@@ -18,8 +18,8 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 2. [Introducción a Python](#Introducci%C3%B3n-a-Python).
 3. [Introducción a Pandas](#Introducci%C3%B3n-a-Pandas).
 4. [Combinar dataframes](#combinar-dataframes)
-5. [Aplicar transformaciones y calcular resúmenes por grupos]()
-6. [Visualizar datos con gráficas en Matplotlib]()
+5. [Aplicar transformaciones y calcular resúmenes por grupos](#aplicar-transformaciones-y-calcular-res%C3%BAmenes-por-grupos)
+6. [Visualizar datos con gráficas en Matplotlib](#visualizar-datos-con-gr%C3%A1ficas-en-matplotlib)
 7. Regresión
 8. Aprendizaje máquina con Scikit-learn
 9. Clasificación con regresión logística
