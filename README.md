@@ -101,7 +101,7 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
 ### Para practicar:
 - Consumo eléctrico de una vivienda, resúmenes e indicadores:
   - [Bloc de notas](trabajos/07-groupby/01-trabajo_consumo_vivienda_handout.ipynb)
-  - [Salidas esperadas](trabajos/05-concat_merge/01-trabajo_consumo_vivienda_output.md)
+  - [Salidas esperadas](trabajos/07-groupby/01-trabajo_consumo_vivienda_output.md)
 
 
 ## Visualizar datos con gráficas en Matplotlib
@@ -115,6 +115,6 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
 ### Para practicar:
 - Consumo eléctrico de una vivienda, representaciones gráficas:
   - [Bloc de notas](trabajos/08-plotting/02-visualizacion_consumo_vivienda_handout.ipynb)
-  - [Salidas esperadas](trabajos/05-concat_merge/02-visualizacion_consumo_vivienda_output.md)
+  - [Salidas esperadas](trabajos/08-plotting/02-visualizacion_consumo_vivienda_output.md)
 
 
