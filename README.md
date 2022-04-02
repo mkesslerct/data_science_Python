@@ -18,8 +18,8 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 2. [Introducción a Python](#Introducci%C3%B3n-a-Python).
 3. [Introducción a Pandas](#Introducci%C3%B3n-a-Pandas).
 4. [Combinar dataframes](#combinar-dataframes)
-5. Aplicar transformaciones y calcular resúmenes por grupos
-6. Visualizar datos con gráficas en Matplotlib
+5. [Aplicar transformaciones y calcular resúmenes por grupos]()
+6. [Visualizar datos con gráficas en Matplotlib]()
 7. Regresión
 8. Aprendizaje máquina con Scikit-learn
 9. Clasificación con regresión logística
@@ -88,7 +88,33 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
   - [Bloc de notas](trabajos/05-concat_merge/01-merge_handout.ipynb)
   - [Salidas esperadas](trabajos/05-concat_merge/01-merge_output.md)
 
+## Aplicar transformaciones y calcular resúmenes por grupos:
+
+### Unidades de aprendizaje
+- [Aplicar funciones a dataframes o series en Pandas](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/c907f028659e46b08f3f8ffde9eebaf2/)
+- [Trabajar con datos agrupados en Pandas](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/7d77217add624843bc2f1b086519904e/)
+
+### Transparencias asociadas a las unidades:
+- [Aplicar funciones](transparencias/06-apply/01-apply-slides_handout.pdf)
+- [Definir datos agrupados y calcular resúmenes](transparencias/07-groupby/01-groupby-slides_handout.pdf)
+
+### Para practicar:
+- Consumo eléctrico de una vivienda, resúmenes e indicadores:
+  - [Bloc de notas](trabajos/07-groupby/01-trabajo_consumo_vivienda_handout.ipynb)
+  - [Salidas esperadas](trabajos/05-concat_merge/01-trabajo_consumo_vivienda_output.md)
 
 
+## Visualizar datos con gráficas en Matplotlib
+
+### Unidades de aprendizaje
+- [Visualizar datos con Matplotlib](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/74ae28a23bcd48b0bad8c444e700758b/)
+
+### Transparencias asociadas a las unidades:
+- [Visualizar datos con Matplotlib](transparencias/08-plotting/01-visualizacion_matplotlib_handout.pdf)
+
+### Para practicar:
+- Consumo eléctrico de una vivienda, representaciones gráficas:
+  - [Bloc de notas](trabajos/08-plotting/02-visualizacion_consumo_vivienda_handout.ipynb)
+  - [Salidas esperadas](trabajos/05-concat_merge/02-visualizacion_consumo_vivienda_output.md)
 
 

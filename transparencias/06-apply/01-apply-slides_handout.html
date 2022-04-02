@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 
-<title>01-groupby-slides slides</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>01-apply-slides_output slides</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 <!-- General and theme style sheets -->
 <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.0.2/dist/reveal.css">
@@ -14640,17 +14640,12 @@ div.jp-OutputPrompt {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Crear-DataFrames-agrupados">Crear DataFrames agrupados<a class="anchor-link" href="#Crear-DataFrames-agrupados">&#182;</a></h1><p><code>pandas</code> tiene una clase de objetos llamados <code>GroupedDataFrame</code> que permite agrupar las filas (o columnas) de un DataFrame.</p>
-<ul>
-<li>Un ejemplo podría ser un conjunto de datos asociados a individuos para el que que queramos distinguir entre hombres y mujeres a la hora de calcular indicadores. </li>
-<li>Otro caso podría ser el de mediciones asociadas a instantes de tiempo, y queremos calcular resúmenes para cada hora del día.</li>
-</ul>
-<p>Para crear dataframes agrupados, usaremos el método <code>groupby</code>. (ver <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html">User guide, Group by: split-apply-combine</a>)</p>
+<h1 id="Aplicar-funciones-a-elementos-de-Series-o-DataFrames">Aplicar funciones a elementos de <code>Series</code> o <code>DataFrame</code>s<a class="anchor-link" href="#Aplicar-funciones-a-elementos-de-Series-o-DataFrames">&#182;</a></h1><p>Cualquier procesado, manipulación o análisis de conjuntos de datos implica el aplicar transformaciones, funciones o calcular indicadores elemento a elemento, fila a fila o columna a columna.</p>
 
 </div>
 </div>
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -14658,9 +14653,9 @@ div.jp-OutputPrompt {
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Preliminares</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 </pre></div>
 
      </div>
@@ -14668,33 +14663,18 @@ div.jp-OutputPrompt {
 </div>
 </div>
 
-</div></div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">DATA_DIRECTORY</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div></div></section></section><section><section>
+</div></section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Consideremos-el-siguiente-DataFrame:">Consideremos el siguiente DataFrame:<a class="anchor-link" href="#Consideremos-el-siguiente-DataFrame:">&#182;</a></h2>
+<p>Para ilustrar, generamos un <code>DataFrame</code> usando un generador de números aleatorios.</p>
+
 </div>
 </div>
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -14702,12 +14682,12 @@ div.jp-OutputPrompt {
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="p">{</span>
-     <span class="s2">&quot;X&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span>
-     <span class="s2">&quot;Y&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
-     <span class="s2">&quot;Z&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
-    <span class="p">}</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Usamos el generador por defecto del módulo random de numpy</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="c1"># </span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">&#39;xy&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">df</span>
 </pre></div>
@@ -14745,59 +14725,35 @@ div.jp-OutputPrompt {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>X</th>
-      <th>Y</th>
-      <th>Z</th>
+      <th>x</th>
+      <th>y</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>a</td>
-      <td>0</td>
-      <td>8</td>
+      <td>-0.131601</td>
+      <td>-0.186435</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>a</td>
-      <td>1</td>
-      <td>9</td>
+      <td>-1.908522</td>
+      <td>0.039505</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>a</td>
-      <td>2</td>
-      <td>10</td>
+      <td>0.324792</td>
+      <td>1.964660</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>a</td>
-      <td>3</td>
-      <td>11</td>
+      <td>0.093982</td>
+      <td>0.760966</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>b</td>
-      <td>4</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>b</td>
-      <td>5</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>c</td>
-      <td>6</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>c</td>
-      <td>7</td>
-      <td>15</td>
+      <td>1.246065</td>
+      <td>-0.346505</td>
     </tr>
   </tbody>
 </table>
@@ -14810,18 +14766,18 @@ div.jp-OutputPrompt {
 
 </div>
 
-</div></div><div class="fragment">
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Agrupamos según los valores de la columna X</p>
+<h2 id="Funciones-universales-ufuncs-de-numpy">Funciones universales <code>ufuncs</code> de <code>numpy</code><a class="anchor-link" href="#Funciones-universales-ufuncs-de-numpy">&#182;</a></h2><p>Puesto que un <code>DataFrame</code> también es un array de <code>numpy</code>, podemos aplicarle cualquier función universal de <code>numpy</code>. Las funciones universales de <code>numpy</code>(ufuncs) se pueden consultar en la referencia <a href="https://numpy.org/doc/stable/reference/ufuncs.html#available-ufuncs">Available ufuncs</a></p>
 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -14829,94 +14785,8 @@ div.jp-OutputPrompt {
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div></div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Podemos iterar un <code>GroupedDataFrame</code> para recorrer los grupos:</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">agrupados</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Nombre del grupo: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Nombre del grupo: a
-   X  Y   Z
-0  a  0   8
-1  a  1   9
-2  a  2  10
-3  a  3  11
-Nombre del grupo: b
-   X  Y   Z
-4  b  4  12
-5  b  5  13
-Nombre del grupo: c
-   X  Y   Z
-6  c  6  14
-7  c  7  15
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div></div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Podemos aplicarle métodos preparados para <code>GroupedDataFrame</code> como <code>mean</code>, <code>sum</code> o <code>describe</code></p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculamos la exponencial de x e y, elemento a elemento</span>
+<span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14952,121 +14822,35 @@ Nombre del grupo: c
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Y</th>
-      <th>Z</th>
-    </tr>
-    <tr>
-      <th>X</th>
-      <th></th>
-      <th></th>
+      <th>x</th>
+      <th>y</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>a</th>
-      <td>1.5</td>
-      <td>9.5</td>
+      <th>0</th>
+      <td>0.876691</td>
+      <td>0.829913</td>
     </tr>
     <tr>
-      <th>b</th>
-      <td>4.5</td>
-      <td>12.5</td>
+      <th>1</th>
+      <td>0.148299</td>
+      <td>1.040296</td>
     </tr>
     <tr>
-      <th>c</th>
-      <td>6.5</td>
-      <td>14.5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div><div class="fragment">
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Nos devuelve el valor de la media por grupos de las dos columnas Y y Z.</p>
-
-</div>
-</div>
-</div>
-</div></div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Y</th>
-      <th>Z</th>
+      <th>2</th>
+      <td>1.383743</td>
+      <td>7.132488</td>
     </tr>
     <tr>
-      <th>X</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>6</td>
-      <td>38</td>
+      <th>3</th>
+      <td>1.098540</td>
+      <td>2.140343</td>
     </tr>
     <tr>
-      <th>b</th>
-      <td>9</td>
-      <td>25</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>13</td>
-      <td>29</td>
+      <th>4</th>
+      <td>3.476635</td>
+      <td>0.707155</td>
     </tr>
   </tbody>
 </table>
@@ -15087,7 +14871,8 @@ Nombre del grupo: c
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Elevamos x a la potencia y, elemento a elemento:</span>
+<span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]),</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])</span>
 </pre></div>
 
      </div>
@@ -15104,132 +14889,14 @@ Nombre del grupo: c
 <div class="jp-OutputArea-child">
 
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="8" halign="left">Y</th>
-      <th colspan="8" halign="left">Z</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-    </tr>
-    <tr>
-      <th>X</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>4.0</td>
-      <td>1.5</td>
-      <td>1.290994</td>
-      <td>0.0</td>
-      <td>0.75</td>
-      <td>1.5</td>
-      <td>2.25</td>
-      <td>3.0</td>
-      <td>4.0</td>
-      <td>9.5</td>
-      <td>1.290994</td>
-      <td>8.0</td>
-      <td>8.75</td>
-      <td>9.5</td>
-      <td>10.25</td>
-      <td>11.0</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>2.0</td>
-      <td>4.5</td>
-      <td>0.707107</td>
-      <td>4.0</td>
-      <td>4.25</td>
-      <td>4.5</td>
-      <td>4.75</td>
-      <td>5.0</td>
-      <td>2.0</td>
-      <td>12.5</td>
-      <td>0.707107</td>
-      <td>12.0</td>
-      <td>12.25</td>
-      <td>12.5</td>
-      <td>12.75</td>
-      <td>13.0</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>2.0</td>
-      <td>6.5</td>
-      <td>0.707107</td>
-      <td>6.0</td>
-      <td>6.25</td>
-      <td>6.5</td>
-      <td>6.75</td>
-      <td>7.0</td>
-      <td>2.0</td>
-      <td>14.5</td>
-      <td>0.707107</td>
-      <td>14.0</td>
-      <td>14.25</td>
-      <td>14.5</td>
-      <td>14.75</td>
-      <td>15.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>0         NaN
+1         NaN
+2    0.109767
+3    0.165395
+4    0.926605
+dtype: float64</pre>
 </div>
 
 </div>
@@ -15244,12 +14911,11 @@ Nombre del grupo: c
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Podemos-especificar-m%C3%A1s-de-una-columna-para-crear-los-grupos.">Podemos especificar m&#225;s de una columna para crear los grupos.<a class="anchor-link" href="#Podemos-especificar-m%C3%A1s-de-una-columna-para-crear-los-grupos.">&#182;</a></h2><p>Para ilustrarlo, cargamos el DataFrame de <code>flights</code> que contiene todos los vuelos que salieron de los tres aeropuertos de NYC en 2013.</p>
-
+<h2 id="Tambi%C3%A9n-se-pueden-aplicar-m%C3%A9todos-de-pandas-directamente-a-todo-un-DataFrame">Tambi&#233;n se pueden aplicar m&#233;todos de <code>pandas</code> directamente a todo un <code>DataFrame</code><a class="anchor-link" href="#Tambi%C3%A9n-se-pueden-aplicar-m%C3%A9todos-de-pandas-directamente-a-todo-un-DataFrame">&#182;</a></h2>
 </div>
 </div>
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15257,8 +14923,216 @@ Nombre del grupo: c
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flights</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_feather</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span><span class="p">,</span> <span class="s1">&#39;flights.feather&#39;</span><span class="p">))</span>
-<span class="n">flights</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Para obtener la suma, columna por columna</span>
+<span class="n">df</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>x   -0.375284
+y    2.232192
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Para obtener la media, columna por columna</span>
+<span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>x   -0.075057
+y    0.446438
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Para obtener la desviación típica, columna por columna</span>
+<span class="n">df</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>x    1.150935
+y    0.948526
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>También podríamos calcular estos indicadores, fila por fila, usando el parámetro <code>axis=1</code>.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>0   -0.318036
+1   -1.869017
+2    2.289452
+3    0.854949
+4    0.899560
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Podéis encontrar y explorar la gran cantidad de métodos disponibles para un <code>DataFrame</code>en la <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html">documentación</a> de <code>pandas</code>.</p>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Aplicar-funciones-a-elementos-de-Series-o-DataFrames-(II)">Aplicar funciones a elementos de <code>Series</code> o <code>DataFrame</code>s (II)<a class="anchor-link" href="#Aplicar-funciones-a-elementos-de-Series-o-DataFrames-(II)">&#182;</a></h2><p>En el vídeo anterior vimos cómo aplicar funciones universales de <code>numpy</code> o los métodos de <code>pandas</code> a <code>DataFrame</code>s. Pero puede ser que queramos aplicar nuestras propias funciones.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Al igual que en el vídeo anterior, para ilustrar, generamos un <code>DataFrame</code> usando un generador de números aleatorios.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Usamos el generador por defecto del módulo random de numpy</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="c1"># </span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">&#39;xy&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">df</span>
 </pre></div>
 
      </div>
@@ -15294,137 +15168,35 @@ Nombre del grupo: c
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>year</th>
-      <th>month</th>
-      <th>day</th>
-      <th>dep_time</th>
-      <th>sched_dep_time</th>
-      <th>dep_delay</th>
-      <th>arr_time</th>
-      <th>sched_arr_time</th>
-      <th>arr_delay</th>
-      <th>carrier</th>
-      <th>flight</th>
-      <th>tailnum</th>
-      <th>origin</th>
-      <th>dest</th>
-      <th>air_time</th>
-      <th>distance</th>
-      <th>hour</th>
-      <th>minute</th>
-      <th>time_hour</th>
+      <th>x</th>
+      <th>y</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2013</td>
-      <td>1</td>
-      <td>1</td>
-      <td>517.0</td>
-      <td>515</td>
-      <td>2.0</td>
-      <td>830.0</td>
-      <td>819</td>
-      <td>11.0</td>
-      <td>UA</td>
-      <td>1545</td>
-      <td>N14228</td>
-      <td>EWR</td>
-      <td>IAH</td>
-      <td>227.0</td>
-      <td>1400.0</td>
-      <td>5.0</td>
-      <td>15.0</td>
-      <td>2013-01-01 05:00:00-05:00</td>
+      <td>-0.131601</td>
+      <td>-0.186435</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>2013</td>
-      <td>1</td>
-      <td>1</td>
-      <td>533.0</td>
-      <td>529</td>
-      <td>4.0</td>
-      <td>850.0</td>
-      <td>830</td>
-      <td>20.0</td>
-      <td>UA</td>
-      <td>1714</td>
-      <td>N24211</td>
-      <td>LGA</td>
-      <td>IAH</td>
-      <td>227.0</td>
-      <td>1416.0</td>
-      <td>5.0</td>
-      <td>29.0</td>
-      <td>2013-01-01 05:00:00-05:00</td>
+      <td>-1.908522</td>
+      <td>0.039505</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>2013</td>
-      <td>1</td>
-      <td>1</td>
-      <td>542.0</td>
-      <td>540</td>
-      <td>2.0</td>
-      <td>923.0</td>
-      <td>850</td>
-      <td>33.0</td>
-      <td>AA</td>
-      <td>1141</td>
-      <td>N619AA</td>
-      <td>JFK</td>
-      <td>MIA</td>
-      <td>160.0</td>
-      <td>1089.0</td>
-      <td>5.0</td>
-      <td>40.0</td>
-      <td>2013-01-01 05:00:00-05:00</td>
+      <td>0.324792</td>
+      <td>1.964660</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>2013</td>
-      <td>1</td>
-      <td>1</td>
-      <td>544.0</td>
-      <td>545</td>
-      <td>-1.0</td>
-      <td>1004.0</td>
-      <td>1022</td>
-      <td>-18.0</td>
-      <td>B6</td>
-      <td>725</td>
-      <td>N804JB</td>
-      <td>JFK</td>
-      <td>BQN</td>
-      <td>183.0</td>
-      <td>1576.0</td>
-      <td>5.0</td>
-      <td>45.0</td>
-      <td>2013-01-01 05:00:00-05:00</td>
+      <td>0.093982</td>
+      <td>0.760966</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>2013</td>
-      <td>1</td>
-      <td>1</td>
-      <td>554.0</td>
-      <td>600</td>
-      <td>-6.0</td>
-      <td>812.0</td>
-      <td>837</td>
-      <td>-25.0</td>
-      <td>DL</td>
-      <td>461</td>
-      <td>N668DN</td>
-      <td>LGA</td>
-      <td>ATL</td>
-      <td>116.0</td>
-      <td>762.0</td>
-      <td>6.0</td>
-      <td>0.0</td>
-      <td>2013-01-01 06:00:00-05:00</td>
+      <td>1.246065</td>
+      <td>-0.346505</td>
     </tr>
   </tbody>
 </table>
@@ -15437,18 +15209,18 @@ Nombre del grupo: c
 
 </div>
 
-</div></div></section></section><section><section>
+</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Agrupamos los vuelos para hacer recuentos desglosados por mes y por aeropuerto de origen</p>
+<p>Empezamos por crear una función</p>
 
 </div>
 </div>
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15456,7 +15228,9 @@ Nombre del grupo: c
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span> <span class="o">=</span> <span class="n">flights</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;origin&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">mi_funcion</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;es positivo&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;es negativo&#39;</span>
+<span class="c1"># hemos usado la construcción if else</span>
 </pre></div>
 
      </div>
@@ -15464,18 +15238,18 @@ Nombre del grupo: c
 </div>
 </div>
 
-</div></div><div class="fragment">
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Aplicamos el método <code>size</code> para hacer el recuento de filas (vuelos) por grupo:</p>
+<p>Para aplicar nuestra función a cada elemento del <code>DataFrame</code> usamos <code>applymap</code></p>
 
 </div>
 </div>
 </div>
-</div></div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15483,7 +15257,103 @@ Nombre del grupo: c
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="n">mi_funcion</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>es negativo</td>
+      <td>es negativo</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>es negativo</td>
+      <td>es positivo</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>es positivo</td>
+      <td>es positivo</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>es positivo</td>
+      <td>es positivo</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>es positivo</td>
+      <td>es negativo</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Si quisieramos aplicar nuestra función a cada elemento de una <code>Serie</code> usaríamos <code>apply</code>:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">mi_funcion</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15502,43 +15372,173 @@ Nombre del grupo: c
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>month  origin
-1      EWR        9893
-       JFK        9161
-       LGA        7950
-2      EWR        9107
-       JFK        8421
-       LGA        7423
-3      EWR       10420
-       JFK        9697
-       LGA        8717
-4      EWR       10531
-       JFK        9218
-       LGA        8581
-5      EWR       10592
-       JFK        9397
-       LGA        8807
-6      EWR       10175
-       JFK        9472
-       LGA        8596
-7      EWR       10475
-       JFK       10023
-       LGA        8927
-8      EWR       10359
-       JFK        9983
-       LGA        8985
-9      EWR        9550
-       JFK        8908
-       LGA        9116
-10     EWR       10104
-       JFK        9143
-       LGA        9642
-11     EWR        9707
-       JFK        8710
-       LGA        8851
-12     EWR        9922
-       JFK        9146
-       LGA        9067
+<pre>0    es negativo
+1    es negativo
+2    es positivo
+3    es positivo
+4    es positivo
+Name: x, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Las-funciones-an%C3%B3nimas-en-Python">Las funciones an&#243;nimas en Python<a class="anchor-link" href="#Las-funciones-an%C3%B3nimas-en-Python">&#182;</a></h2><p>Es muy útil tener la posibilidad de definir sobre la marcha una función sin darle un nombre y usarla como argumento de un método. Se hace con <code>lambda</code>.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Para obtener el doble de cada elemento</span>
+<span class="n">df</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>x   -0.375284
+y    2.232192
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="El-m%C3%A9todo-apply-para-un-DataFrame">El m&#233;todo <code>apply</code> para un <code>DataFrame</code><a class="anchor-link" href="#El-m%C3%A9todo-apply-para-un-DataFrame">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>El método <code>apply</code> si se aplica a un <code>DataFrame</code> debe tener como argumento a una función que se aplica a toda una columna o toda una fila, no a un elemento individual.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Ejemplo con una función que se aplica a un vector: calculamos el número de valores positivos por columna</span>
+<span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>x    3
+y    3
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div></section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>El método <code>apply</code> admite también el argumento <code>axis=1</code>, para que se aplique la función fila por fila.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>0    0
+1    1
+2    2
+3    2
+4    1
 dtype: int64</pre>
 </div>
 
@@ -15554,1167 +15554,20 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Podemos-crear-grupos-al-especificar-una-funci%C3%B3n-que-se-aplica-a-los-valores-del-index">Podemos crear grupos al especificar una funci&#243;n que se aplica a los valores del index<a class="anchor-link" href="#Podemos-crear-grupos-al-especificar-una-funci%C3%B3n-que-se-aplica-a-los-valores-del-index">&#182;</a></h2><p>Para ilustrarlo, cargamos el fichero <code>mompean</code></p>
+<blockquote><p>Es muy recomendable evitar <code>apply</code> si es posible, y usar las funciones de <code>numpy</code> o los métodos de <code>pandas</code> que son muy optimizados y llevan a cabo la iteración en C.
+<code>apply</code> lleva a cabo la iteración en Python.</p>
+</blockquote>
 
 </div>
 </div>
 </div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mompean</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span><span class="p">,</span> <span class="s1">&#39;mompean.csv&#39;</span><span class="p">),</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;FechaHora&#39;</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;FechaHora&#39;</span><span class="p">)</span>
-<span class="n">mompean</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>NO</th>
-      <th>NO2</th>
-      <th>SO2</th>
-      <th>O3</th>
-      <th>TMP</th>
-      <th>HR</th>
-      <th>NOX</th>
-      <th>DD</th>
-      <th>PRB</th>
-      <th>RS</th>
-      <th>VV</th>
-      <th>C6H6</th>
-      <th>C7H8</th>
-      <th>XIL</th>
-      <th>PM10</th>
-      <th>Ruido</th>
-    </tr>
-    <tr>
-      <th>FechaHora</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2010-01-01 00:00:00</th>
-      <td>4.0</td>
-      <td>7.0</td>
-      <td>17.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>14.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>5.0</td>
-      <td>56.0</td>
-    </tr>
-    <tr>
-      <th>2010-01-01 01:00:00</th>
-      <td>6.0</td>
-      <td>12.0</td>
-      <td>18.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>21.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>15.0</td>
-      <td>58.0</td>
-    </tr>
-    <tr>
-      <th>2010-01-01 02:00:00</th>
-      <td>6.0</td>
-      <td>17.0</td>
-      <td>17.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>26.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>12.0</td>
-      <td>60.0</td>
-    </tr>
-    <tr>
-      <th>2010-01-01 03:00:00</th>
-      <td>5.0</td>
-      <td>10.0</td>
-      <td>18.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>18.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2.0</td>
-      <td>57.0</td>
-    </tr>
-    <tr>
-      <th>2010-01-01 04:00:00</th>
-      <td>4.0</td>
-      <td>8.0</td>
-      <td>19.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>14.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>5.0</td>
-      <td>55.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div></section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Queremos crear grupos que correspondan a las distintas horas del día, para ver si hay diferencias en el patrón horario de contaminación.</p>
-<p>Para ello, pasamos a <code>groupby</code> una función que se aplique a las etiquetas de las filas (index) y que extraiga la hora de un objeto de tipo <code>dtime</code></p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span> <span class="o">=</span> <span class="n">mompean</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div></div><div class="fragment">
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Hemos usado una función anónima. Aplicamos el método <code>mean</code></p>
-
-</div>
-</div>
-</div>
-</div></div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>NO</th>
-      <th>NO2</th>
-      <th>SO2</th>
-      <th>O3</th>
-      <th>TMP</th>
-      <th>HR</th>
-      <th>NOX</th>
-      <th>DD</th>
-      <th>PRB</th>
-      <th>RS</th>
-      <th>VV</th>
-      <th>C6H6</th>
-      <th>C7H8</th>
-      <th>XIL</th>
-      <th>PM10</th>
-      <th>Ruido</th>
-    </tr>
-    <tr>
-      <th>FechaHora</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>9.618014</td>
-      <td>27.402604</td>
-      <td>7.516146</td>
-      <td>53.871709</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>42.020890</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24.416717</td>
-      <td>57.280031</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>7.779196</td>
-      <td>25.304997</td>
-      <td>7.399091</td>
-      <td>51.332306</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>37.115698</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22.790531</td>
-      <td>55.935533</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>6.599348</td>
-      <td>22.842077</td>
-      <td>7.323167</td>
-      <td>49.531390</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>32.844795</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>21.687349</td>
-      <td>54.259800</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4.858891</td>
-      <td>19.067700</td>
-      <td>7.234885</td>
-      <td>48.993829</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>26.410005</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>20.119487</td>
-      <td>53.249424</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4.147523</td>
-      <td>16.349483</td>
-      <td>7.184957</td>
-      <td>48.060045</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22.607512</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>18.802399</td>
-      <td>52.396618</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>4.095316</td>
-      <td>15.585240</td>
-      <td>7.150509</td>
-      <td>45.970250</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>21.786220</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>17.874605</td>
-      <td>51.653077</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>5.992364</td>
-      <td>18.083174</td>
-      <td>7.177069</td>
-      <td>41.162830</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>27.149168</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>17.907378</td>
-      <td>53.046959</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>12.616621</td>
-      <td>25.141144</td>
-      <td>7.252747</td>
-      <td>33.026404</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>44.355586</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>20.484621</td>
-      <td>56.916923</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>18.700545</td>
-      <td>30.695095</td>
-      <td>7.376575</td>
-      <td>27.968004</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>59.242234</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24.919906</td>
-      <td>59.568129</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>34.211874</td>
-      <td>36.715686</td>
-      <td>7.711188</td>
-      <td>26.932959</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>89.038399</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>32.868169</td>
-      <td>60.270978</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>26.159482</td>
-      <td>32.184573</td>
-      <td>7.810072</td>
-      <td>39.895430</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>72.175290</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>34.702703</td>
-      <td>60.947096</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>13.300164</td>
-      <td>25.110716</td>
-      <td>7.697393</td>
-      <td>55.724283</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>45.379716</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>29.696712</td>
-      <td>61.313124</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>9.329697</td>
-      <td>22.087810</td>
-      <td>7.825563</td>
-      <td>65.378219</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>36.264249</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>27.035784</td>
-      <td>61.997703</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>8.356833</td>
-      <td>20.896150</td>
-      <td>7.995197</td>
-      <td>71.142339</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>33.565618</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>25.787697</td>
-      <td>62.338168</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>7.735246</td>
-      <td>19.927721</td>
-      <td>8.148641</td>
-      <td>75.562849</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>31.660531</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24.944570</td>
-      <td>62.381679</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>7.167794</td>
-      <td>18.990257</td>
-      <td>8.609205</td>
-      <td>78.299637</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>29.848714</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>23.915736</td>
-      <td>61.678380</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>6.474696</td>
-      <td>17.648714</td>
-      <td>8.834398</td>
-      <td>80.232617</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>27.457645</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>23.579356</td>
-      <td>60.812404</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>6.404491</td>
-      <td>18.028950</td>
-      <td>9.035134</td>
-      <td>80.065624</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>27.702922</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24.367599</td>
-      <td>60.751149</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>6.553600</td>
-      <td>20.003249</td>
-      <td>9.063149</td>
-      <td>77.836409</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>29.928803</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24.708589</td>
-      <td>61.220352</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>7.001896</td>
-      <td>23.205038</td>
-      <td>8.684084</td>
-      <td>73.640817</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>33.828548</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>24.993455</td>
-      <td>61.569678</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>8.330986</td>
-      <td>25.681203</td>
-      <td>8.342933</td>
-      <td>69.847144</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>38.321506</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>25.506697</td>
-      <td>61.812261</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>10.382592</td>
-      <td>28.194685</td>
-      <td>7.983729</td>
-      <td>65.330907</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>43.979393</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>26.555189</td>
-      <td>61.722265</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>11.746273</td>
-      <td>29.620222</td>
-      <td>7.777807</td>
-      <td>60.919373</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>47.500678</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>26.788431</td>
-      <td>60.703675</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>12.008955</td>
-      <td>29.771235</td>
-      <td>7.646823</td>
-      <td>56.430933</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>48.046676</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>25.949129</td>
-      <td>58.908046</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Podemos-aplicar-m%C3%A1s-de-una-funci%C3%B3n-en-groupby">Podemos aplicar m&#225;s de una funci&#243;n en <code>groupby</code><a class="anchor-link" href="#Podemos-aplicar-m%C3%A1s-de-una-funci%C3%B3n-en-groupby">&#182;</a></h2><p>Pasamos una lista de funciones</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span> <span class="o">=</span> <span class="n">mompean</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">dayofweek</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">hour</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div></div><div class="fragment">
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Calculamos la media desglosada por grupo:</p>
-
-</div>
-</div>
-</div>
-</div></div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">agrupados</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th></th>
-      <th>NO</th>
-      <th>NO2</th>
-      <th>SO2</th>
-      <th>O3</th>
-      <th>TMP</th>
-      <th>HR</th>
-      <th>NOX</th>
-      <th>DD</th>
-      <th>PRB</th>
-      <th>RS</th>
-      <th>VV</th>
-      <th>C6H6</th>
-      <th>C7H8</th>
-      <th>XIL</th>
-      <th>PM10</th>
-      <th>Ruido</th>
-    </tr>
-    <tr>
-      <th>FechaHora</th>
-      <th>FechaHora</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="5" valign="top">0</th>
-      <th>0</th>
-      <td>7.562380</td>
-      <td>25.581574</td>
-      <td>7.512287</td>
-      <td>55.924303</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>37.084453</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22.472486</td>
-      <td>57.027624</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>6.180077</td>
-      <td>23.312261</td>
-      <td>7.435606</td>
-      <td>53.521912</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>32.668582</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>20.853890</td>
-      <td>55.419890</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>5.517241</td>
-      <td>21.136015</td>
-      <td>7.361742</td>
-      <td>51.169323</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>29.501916</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>20.206831</td>
-      <td>53.508287</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4.126437</td>
-      <td>17.105364</td>
-      <td>7.229167</td>
-      <td>50.878486</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>23.373563</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>18.842505</td>
-      <td>52.569061</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>3.624521</td>
-      <td>14.111111</td>
-      <td>7.143939</td>
-      <td>50.537849</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>19.616858</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>17.838710</td>
-      <td>51.806630</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th rowspan="5" valign="top">6</th>
-      <th>19</th>
-      <td>5.676245</td>
-      <td>18.860153</td>
-      <td>8.581132</td>
-      <td>77.117296</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>27.421456</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22.644612</td>
-      <td>60.044199</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>6.545977</td>
-      <td>20.641762</td>
-      <td>8.330189</td>
-      <td>73.753479</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>30.588123</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>22.718336</td>
-      <td>60.364641</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>7.767754</td>
-      <td>23.921305</td>
-      <td>7.835539</td>
-      <td>68.711155</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>35.700576</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>23.905303</td>
-      <td>60.569061</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>8.694818</td>
-      <td>26.278311</td>
-      <td>7.667297</td>
-      <td>63.896414</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>39.462572</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>23.990512</td>
-      <td>59.972376</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>9.168906</td>
-      <td>27.220729</td>
-      <td>7.655955</td>
-      <td>59.272908</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>41.084453</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>23.339658</td>
-      <td>58.375691</td>
-    </tr>
-  </tbody>
-</table>
-<p>168 rows × 16 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Realizar-operaciones-sobre-GroupedDataFrames">Realizar operaciones sobre <code>GroupedDataFrame</code>s<a class="anchor-link" href="#Realizar-operaciones-sobre-GroupedDataFrames">&#182;</a></h1><p>Podemos realizar tres tipos de operaciones que se traducen en tres verbos</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment">
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li><code>aggregate</code>: se trata de resumir cada grupo calculando uno o varios indicadores, por ejemplo su media o su media y desviación típica</li>
-<li><code>transform</code>: se trata de calcular para cada grupo una o varias columnas con el mismo <code>index</code> que el grupo, por lo tanto con el mismo número de filas y las mismas etiquetas. Por ejemplo puedo, dentro de cada grupo, normalizar los valores respecto a la media y la desviación típica del grupo.</li>
-<li><code>filter</code>: se trata de seleccionar grupos  que cumplen un determinado criterio</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Consideramos el DataFrame:</p>
+<p>En el caso anterior, podríamos haber usado directamente el método <code>sum</code> en <code>pandas</code>.</p>
 
 </div>
 </div>
@@ -16727,1195 +15580,7 @@ dtype: int64</pre>
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;X&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> 
-        <span class="s2">&quot;Y&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
-        <span class="s2">&quot;Z&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">)</span>
-<span class="n">df</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>X</th>
-      <th>Y</th>
-      <th>Z</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a</td>
-      <td>0</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>a</td>
-      <td>1</td>
-      <td>9</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>a</td>
-      <td>2</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>a</td>
-      <td>3</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>b</td>
-      <td>4</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>b</td>
-      <td>5</td>
-      <td>13</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>c</td>
-      <td>6</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>c</td>
-      <td>7</td>
-      <td>15</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="fragment">
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Agrupamos según los valores de <code>X</code> y aplicamos el método <code>agg</code>, pasándole la función para calcular el indicador.</p>
-
-</div>
-</div>
-</div>
-</div></div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Y</th>
-      <th>Z</th>
-    </tr>
-    <tr>
-      <th>X</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>1.5</td>
-      <td>9.5</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>4.5</td>
-      <td>12.5</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>6.5</td>
-      <td>14.5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div></section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Ya vimos que se puede obtener el mismo resultado sin usar <code>agg</code></p>
-
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Y</th>
-      <th>Z</th>
-    </tr>
-    <tr>
-      <th>X</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>1.5</td>
-      <td>9.5</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>4.5</td>
-      <td>12.5</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>6.5</td>
-      <td>14.5</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Usar <code>agg</code> permite, por una parte, aplicar más de una función</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="2" halign="left">Y</th>
-      <th colspan="2" halign="left">Z</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>mean</th>
-      <th>std</th>
-      <th>mean</th>
-      <th>std</th>
-    </tr>
-    <tr>
-      <th>X</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>1.5</td>
-      <td>1.290994</td>
-      <td>9.5</td>
-      <td>1.290994</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>4.5</td>
-      <td>0.707107</td>
-      <td>12.5</td>
-      <td>0.707107</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>6.5</td>
-      <td>0.707107</td>
-      <td>14.5</td>
-      <td>0.707107</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div><div class="fragment">
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Por otra parte, permite usar nuestras propias funciones.</p>
-<p>Para ilustrarlo, modificamos <code>df</code> para introducir datos faltantes</p>
-
-</div>
-</div>
-</div>
-</div></div></section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
-<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
-<span class="n">df</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>X</th>
-      <th>Y</th>
-      <th>Z</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>a</td>
-      <td>NaN</td>
-      <td>8.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>a</td>
-      <td>1.0</td>
-      <td>9.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>a</td>
-      <td>NaN</td>
-      <td>10.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>a</td>
-      <td>3.0</td>
-      <td>11.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>b</td>
-      <td>4.0</td>
-      <td>12.0</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>b</td>
-      <td>NaN</td>
-      <td>13.0</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>c</td>
-      <td>6.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>c</td>
-      <td>7.0</td>
-      <td>15.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Calculamos el número de datos faltantes por columna, desglosándolo por grupos</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Y</th>
-      <th>Z</th>
-    </tr>
-    <tr>
-      <th>X</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>2</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>1</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>0</td>
-      <td>1</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Cargamos el conjunto de datos de vuelos que salieron en 2013 de uno de los tres aeropuertos de NYC</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flights</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_feather</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIRECTORY</span><span class="p">,</span> <span class="s1">&#39;flights.feather&#39;</span><span class="p">))</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div></div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Queremos obtener el número de vuelos cancelados por hora (tienen <code>NaN</code> en la columna <code>dep_time</code>)</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flights</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>year</th>
-      <th>month</th>
-      <th>day</th>
-      <th>dep_time</th>
-      <th>sched_dep_time</th>
-      <th>dep_delay</th>
-      <th>arr_time</th>
-      <th>sched_arr_time</th>
-      <th>arr_delay</th>
-      <th>carrier</th>
-      <th>flight</th>
-      <th>tailnum</th>
-      <th>origin</th>
-      <th>dest</th>
-      <th>air_time</th>
-      <th>distance</th>
-      <th>minute</th>
-      <th>time_hour</th>
-    </tr>
-    <tr>
-      <th>hour</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>5.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>9</td>
-      <td>0</td>
-      <td>9</td>
-      <td>9</td>
-      <td>0</td>
-      <td>13</td>
-      <td>0</td>
-      <td>0</td>
-      <td>6</td>
-      <td>0</td>
-      <td>0</td>
-      <td>13</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>6.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>425</td>
-      <td>0</td>
-      <td>425</td>
-      <td>454</td>
-      <td>0</td>
-      <td>504</td>
-      <td>0</td>
-      <td>0</td>
-      <td>127</td>
-      <td>0</td>
-      <td>0</td>
-      <td>504</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>7.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>289</td>
-      <td>0</td>
-      <td>289</td>
-      <td>305</td>
-      <td>0</td>
-      <td>346</td>
-      <td>0</td>
-      <td>0</td>
-      <td>102</td>
-      <td>0</td>
-      <td>0</td>
-      <td>346</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>8.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>442</td>
-      <td>0</td>
-      <td>442</td>
-      <td>465</td>
-      <td>0</td>
-      <td>508</td>
-      <td>0</td>
-      <td>0</td>
-      <td>161</td>
-      <td>0</td>
-      <td>0</td>
-      <td>508</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>9.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>327</td>
-      <td>0</td>
-      <td>327</td>
-      <td>343</td>
-      <td>0</td>
-      <td>381</td>
-      <td>0</td>
-      <td>0</td>
-      <td>128</td>
-      <td>0</td>
-      <td>0</td>
-      <td>381</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>10.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>290</td>
-      <td>0</td>
-      <td>290</td>
-      <td>303</td>
-      <td>0</td>
-      <td>338</td>
-      <td>0</td>
-      <td>0</td>
-      <td>96</td>
-      <td>0</td>
-      <td>0</td>
-      <td>338</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>11.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>296</td>
-      <td>0</td>
-      <td>296</td>
-      <td>314</td>
-      <td>0</td>
-      <td>344</td>
-      <td>0</td>
-      <td>0</td>
-      <td>61</td>
-      <td>0</td>
-      <td>0</td>
-      <td>344</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>12.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>388</td>
-      <td>0</td>
-      <td>388</td>
-      <td>404</td>
-      <td>0</td>
-      <td>437</td>
-      <td>0</td>
-      <td>0</td>
-      <td>80</td>
-      <td>0</td>
-      <td>0</td>
-      <td>437</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>13.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>429</td>
-      <td>0</td>
-      <td>429</td>
-      <td>456</td>
-      <td>0</td>
-      <td>499</td>
-      <td>0</td>
-      <td>0</td>
-      <td>90</td>
-      <td>0</td>
-      <td>0</td>
-      <td>499</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>14.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>566</td>
-      <td>0</td>
-      <td>566</td>
-      <td>611</td>
-      <td>0</td>
-      <td>684</td>
-      <td>0</td>
-      <td>0</td>
-      <td>170</td>
-      <td>0</td>
-      <td>0</td>
-      <td>684</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>15.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>670</td>
-      <td>0</td>
-      <td>670</td>
-      <td>733</td>
-      <td>0</td>
-      <td>806</td>
-      <td>0</td>
-      <td>0</td>
-      <td>222</td>
-      <td>0</td>
-      <td>0</td>
-      <td>806</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>16.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>840</td>
-      <td>0</td>
-      <td>840</td>
-      <td>891</td>
-      <td>0</td>
-      <td>957</td>
-      <td>0</td>
-      <td>0</td>
-      <td>249</td>
-      <td>0</td>
-      <td>0</td>
-      <td>957</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>17.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>660</td>
-      <td>0</td>
-      <td>660</td>
-      <td>691</td>
-      <td>0</td>
-      <td>759</td>
-      <td>0</td>
-      <td>0</td>
-      <td>150</td>
-      <td>0</td>
-      <td>0</td>
-      <td>759</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>18.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>626</td>
-      <td>0</td>
-      <td>626</td>
-      <td>667</td>
-      <td>0</td>
-      <td>711</td>
-      <td>0</td>
-      <td>0</td>
-      <td>289</td>
-      <td>0</td>
-      <td>0</td>
-      <td>711</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>19.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>861</td>
-      <td>0</td>
-      <td>861</td>
-      <td>898</td>
-      <td>0</td>
-      <td>934</td>
-      <td>0</td>
-      <td>0</td>
-      <td>283</td>
-      <td>0</td>
-      <td>0</td>
-      <td>934</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>20.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>636</td>
-      <td>0</td>
-      <td>636</td>
-      <td>656</td>
-      <td>0</td>
-      <td>678</td>
-      <td>0</td>
-      <td>0</td>
-      <td>232</td>
-      <td>0</td>
-      <td>0</td>
-      <td>678</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>21.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>409</td>
-      <td>0</td>
-      <td>409</td>
-      <td>418</td>
-      <td>0</td>
-      <td>430</td>
-      <td>0</td>
-      <td>0</td>
-      <td>62</td>
-      <td>0</td>
-      <td>0</td>
-      <td>430</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>22.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>78</td>
-      <td>0</td>
-      <td>78</td>
-      <td>81</td>
-      <td>0</td>
-      <td>81</td>
-      <td>0</td>
-      <td>0</td>
-      <td>3</td>
-      <td>0</td>
-      <td>0</td>
-      <td>81</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>23.0</th>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>13</td>
-      <td>0</td>
-      <td>13</td>
-      <td>13</td>
-      <td>0</td>
-      <td>19</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>19</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Así obtenemos el número de valores faltantes para todas las columnas. Como solamente nos interesan las de <code>dep_time</code>, modificamos nuestra petición</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flights</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;hour&#39;</span> <span class="p">)[</span><span class="s1">&#39;dep_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">df</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -17934,28 +15599,9 @@ dtype: int64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>hour
-1.0       1
-5.0       9
-6.0     425
-7.0     289
-8.0     442
-9.0     327
-10.0    290
-11.0    296
-12.0    388
-13.0    429
-14.0    566
-15.0    670
-16.0    840
-17.0    660
-18.0    626
-19.0    861
-20.0    636
-21.0    409
-22.0     78
-23.0     13
-Name: dep_time, dtype: int64</pre>
+<pre>x    3
+y    3
+dtype: int64</pre>
 </div>
 
 </div>
@@ -17964,18 +15610,7 @@ Name: dep_time, dtype: int64</pre>
 
 </div>
 
-</div></div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Para-aplicar-funciones-diferentes-a-diferentes-columnas:">Para aplicar funciones diferentes a diferentes columnas:<a class="anchor-link" href="#Para-aplicar-funciones-diferentes-a-diferentes-columnas:">&#182;</a></h2><p>Hasta el momento, hemos obtenido los mismos indicadores para las diferentes columnas. Es posible especificar funciones diferentes para distintas columnas, usando un dictionario.</p>
-
-</div>
-</div>
-</div>
-</div><div class="fragment"><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs   celltag_remove_output">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -17983,12 +15618,8 @@ Name: dep_time, dtype: int64</pre>
 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
-    <span class="p">{</span>
-        <span class="s1">&#39;Y&#39;</span><span class="p">:</span> <span class="s1">&#39;describe&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Z&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span>
-    <span class="p">}</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fila por fila:</span>
+<span class="p">(</span><span class="n">df</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -17996,115 +15627,7 @@ Name: dep_time, dtype: int64</pre>
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="8" halign="left">Y</th>
-      <th>Z</th>
-    </tr>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-      <th>Z</th>
-    </tr>
-    <tr>
-      <th>X</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>a</th>
-      <td>2.0</td>
-      <td>2.0</td>
-      <td>1.414214</td>
-      <td>1.0</td>
-      <td>1.50</td>
-      <td>2.0</td>
-      <td>2.50</td>
-      <td>3.0</td>
-      <td>9.5</td>
-    </tr>
-    <tr>
-      <th>b</th>
-      <td>1.0</td>
-      <td>4.0</td>
-      <td>NaN</td>
-      <td>4.0</td>
-      <td>4.00</td>
-      <td>4.0</td>
-      <td>4.00</td>
-      <td>4.0</td>
-      <td>12.5</td>
-    </tr>
-    <tr>
-      <th>c</th>
-      <td>2.0</td>
-      <td>6.5</td>
-      <td>0.707107</td>
-      <td>6.0</td>
-      <td>6.25</td>
-      <td>6.5</td>
-      <td>6.75</td>
-      <td>7.0</td>
-      <td>15.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div></div></section></section>
+</div></section></section>
 </div>
 </div>
 </body>
