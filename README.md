@@ -20,11 +20,11 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 4. [Combinar dataframes](#combinar-dataframes)
 5. [Aplicar transformaciones y calcular resúmenes por grupos](#aplicar-transformaciones-y-calcular-res%C3%BAmenes-por-grupos)
 6. [Visualizar datos con gráficas en Matplotlib](#visualizar-datos-con-gr%C3%A1ficas-en-matplotlib)
-7. Regresión
-8. Aprendizaje máquina con Scikit-learn
-9. Clasificación con regresión logística
-10. Regularización de la función coste
-11. Reducción de dimensión: análisis en componentes principales
+7. [Regresión](#regresi%C3%B3n)
+8. [Aprendizaje máquina con Scikit-learn](#aprendizaje-m%C3%A1quina-con-scikit-learn)
+9. [Clasificación con regresión logística](#clasificaci%C3%B3n-con-regresi%C3%B3n-log%C3%ADstica)
+10. [Regularización de la función coste](#regularizaci%C3%B3n-de-la-funci%C3%B3n-coste)
+11. [Reducción de dimensión: análisis en componentes principales](#reducci%C3%B3n-de-dimensi%C3%B3n-an%C3%A1lisis-en-componentes-principales)
 
 
 ## Datos necesarios para los trabajos y algunos ejemplos
@@ -85,8 +85,8 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
   - [Bloc de notas](trabajos/05-concat_merge/01-concat_handout.ipynb)
   - [Salidas esperadas](trabajos/05-concat_merge/01-concat_output.md)
 - Combinar dataframes con merge:
-  - [Bloc de notas](trabajos/05-concat_merge/01-merge_handout.ipynb)
-  - [Salidas esperadas](trabajos/05-concat_merge/01-merge_output.md)
+  - [Bloc de notas](trabajos/05-concat_merge/02-merge_handout.ipynb)
+  - [Salidas esperadas](trabajos/05-concat_merge/02-merge_output.md)
 
 ## Aplicar transformaciones y calcular resúmenes por grupos:
 
