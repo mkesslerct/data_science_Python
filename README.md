@@ -118,3 +118,68 @@ Para facilitar la creación del entorno virtual `ids` en conda, podéis usar el 
   - [Salidas esperadas](trabajos/08-plotting/02-visualizacion_consumo_vivienda_output.md)
 
 
+## Regresión
+
+### Unidades de aprendizaje
+- [Regresión y algoritmo del gradiente](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/558ab527c4464ab58897e5537bb46876/)
+
+### Transparencias asociadas a las unidades:
+- [Regresión y algoritmo del gradiente](transparencias/09-regresion/01-regresion.pdf)
+
+### Para practicar:
+- Predicción de la nota media alumnos de grado:
+  - [Bloc de notas](trabajos/09-regresion/01-regresion_lineal_handout.ipynb)
+  - [Salidas esperadas](trabajos/09-regresion/01-regresion_lineal_output.md)
+
+## Aprendizaje máquina con `Scikit-learn`
+
+### Unidades de aprendizaje
+- [Aprendizaje máquina con `Scikit-learn`](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/4e1d9b0c53df4a9f964719e18afe8789/)
+
+### Transparencias asociadas a las unidades:
+- [Aprendizaje máquina con `Scikit-learn`](transparencias/10-scikit-learn/01-scikit-learn_handout.pdf)
+
+### Para practicar:
+- Predicción de la nota media alumnos de grado:
+  - [Bloc de notas](trabajos/10-scikit-learn/01-sklearn_handout.ipynb)
+  - [Salidas esperadas](trabajos/10-scikit-learn/01-sklearn_output.md)
+
+## Clasificación con regresión logística
+
+### Unidades de aprendizaje
+- [Clasificación](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/733ff1c8182e4211b10b5e4f1d6b8e75/)
+
+### Transparencias asociadas a las unidades:
+- [Clasificación](transparencias/11-clasificacion/01-clasificacion.pdf)
+
+### Para practicar:
+- Clasificación con regresión logística:
+  - [Bloc de notas](trabajos/11-clasificacion/01-clasificacion_handout.ipynb)
+  - [Salidas esperadas](trabajos/11-clasificacion/01-clasificacion_output.md)
+
+## Regularización de la función coste
+
+### Unidades de aprendizaje
+- [Regularización para evitar sobreajuste](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/55a2356a72b44ef2817f10e6ad963cc0/)
+
+### Transparencias asociadas a las unidades:
+- [Regularización](transparencias/12-regularizacion/01-regularizacion.pdf)
+
+### Para practicar:
+- Regularización con regresión y clasificación:
+  - [Bloc de notas](trabajos/12-regularizacion/01-regularizacion_handout.ipynb)
+  - [Salidas esperadas](trabajos/12-regularizacion/01-regularizacion_output.md)
+
+## Reducción de dimensión: análisis en componentes principales
+
+### Unidades de aprendizaje
+- [Análisis en componentes principales](https://opencontent.upct.es/3240eb3933be43129adf7ccb23f1fcda/e7e0dd89ba1c43e1907257216e734957/)
+
+### Transparencias asociadas a las unidades:
+- [Análisis en componentes principales](transparencias/13-acp/01-acp.pdf)
+
+### Para practicar:
+- Reducción de la dimensión de un conjunto de imágenes.
+  - [Bloc de notas](trabajos/13-acp/01-acp_handout.ipynb)
+  - [Salidas esperadas](trabajos/13-acp/01-acp_output.md)
+
