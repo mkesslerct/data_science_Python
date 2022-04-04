@@ -336,14 +336,14 @@ print(f'Tamaño de X_test: {X_test.shape}, tamaño de y_test {y_test.shape}')
 
 
 ## Ajuste del modelo sobre el conjunto de aprendizaje y comprobación sobre conjunto de test
-Vamos ahora a aplicar la combinación de transformadores y estimador que definimos como flujo con las tres etapas ('imputacion', 'estanderizacion', 'regresion') sobre los datos de aprendizajes. El objeto `flujo` se aplica con los mismos pasos de instanciación, ajuste. 
-Lo asignamos a un objeto que llamamos reg_multiple
+Vamos ahora a aplicar la combinación de transformadores y estimador que definimos como pipeline con las tres etapas ('imputacion', 'estanderizacion', 'regresion') sobre los datos de aprendizaje. El objeto pipeline se aplica con los mismos pasos de instanciación, ajuste. 
 
 
 ```python
+# Completar aquí
 
-# Fin Completar aquí
-procesado_regresion.fit(X_train, y_train)
+# --------------------
+
 ```
 
 
