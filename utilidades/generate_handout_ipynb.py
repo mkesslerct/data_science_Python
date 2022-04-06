@@ -59,7 +59,7 @@ def prepare_handout(nb_file, target):
     with open(nb_file, encoding="utf-8") as f:
         nb = json.load(f)
         for i, cell in enumerate(nb["cells"]):
-            if target == "lab":
+            if target == "labhandout":
                 if cell["cell_type"] == "code":
                     source = cell["source"]
                     in_complete_block = False
@@ -125,7 +125,7 @@ def main():
     print(f"Transformed notebook: {nb_output}")
     with open(nb_output, "w", encoding="utf-8") as outfile:
         json.dump(nb, outfile, ensure_ascii=False)
-    if target == "lab":
+    if target == "labhandout":
         os.system(f"jupyter nbconvert --to markdown {nb_output}")
         os.system(f"jupyter nbconvert --to html {nb_output}")
         
