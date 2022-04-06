@@ -31,6 +31,7 @@ Este repositorio contiene todo el material de la asignatura, para su estudio aut
 
 En el siguiente enlace, podéis encontrar los ficheros de datos necesarios para los trabajos y los ejemplos. Podéis descargarlos a medida que los vayáis necesitando y guardar en una carpeta `data` en vuestro directorio de trabajo. También podéis indicar la url del conjunto a la hora de cargar el conjunto de datos con `read_csv`de `pandas`. Si optáis por esta segunda opción, tenéis que usar la url correspondiente a la versión "raw" del fichero en Github. Por ejemplo, para cargar el fichero llamado datos_cairo.csv: 
 ```
+import pandas as pd
 cairo = pd.read_csv("https://raw.githubusercontent.com/mkesslerct/data_science_Python/main/data/datos_cairo.csv")
 ```
 
