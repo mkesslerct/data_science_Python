@@ -47,7 +47,7 @@ Además, hay casos en los que no quiero que aparezca el input de la celda sino s
 
 Para activar un tag que ya está presente en el notebook, basta con seleccionarlo en el "Property inspector". Si no está todavía presente, debo añadirlo con "Add tag".
 
-<img src="figures/set_tags_notebook.gif" alt="Especificar tags en celdas de bloc de notas Jupyter", width="500" height="400">
+<img src="figures/set_tags_notebook.gif" alt="Especificar tags en celdas de bloc de notas Jupyter", width="500" height="400"/>
 
 Una vez los efectos y las posibles etiquetas especificadas para las celdas relevantes, ejecuto
 
