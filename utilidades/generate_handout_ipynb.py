@@ -136,8 +136,8 @@ def main():
 
     if target == "slides":
         slides_for_pdf = file_path.stem + "_handout" 
-        os.system(f'jupyter nbconvert {file_path} --to slides --no-prompt --TagRemovePreprocessor.remove_all_outputs_tags "remove_output" --TagRemovePreprocessor.remove_input_tags "to_remove" --SlidesExporter.reveal_theme=simple')
-        os.system(f'jupyter nbconvert {nb_output} --output {slides_for_pdf} --to slides --no-prompt --TagRemovePreprocessor.remove_all_outputs_tags "remove_output" --TagRemovePreprocessor.remove_input_tags "to_remove" --SlidesExporter.reveal_theme=simple --post serve')
+        os.system(f'jupyter nbconvert {file_path} --to slides --no-prompt --TagRemovePreprocessor.remove_all_outputs_tags "remove_output" --TagRemovePreprocessor.remove_input_tags "remove_input" --SlidesExporter.reveal_theme=simple')
+        os.system(f'jupyter nbconvert {nb_output} --output {slides_for_pdf} --to slides --no-prompt --TagRemovePreprocessor.remove_all_outputs_tags "remove_output" --TagRemovePreprocessor.remove_input_tags "remove_input" --SlidesExporter.reveal_theme=simple --post serve')
         os.rename(file_path.parent / (slides_for_pdf + ".slides.html"), file_path.parent / (slides_for_pdf + ".html")) 
     
     os.remove(nb_output)
