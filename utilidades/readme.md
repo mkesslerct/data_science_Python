@@ -25,7 +25,7 @@ que se transformará en `trabajo_handout.ipynb` en
 geyser
 ```
 
-El script que se encarga de generar estos entregables es `generate_handout_ipynb.py` que admite como argumento la ruta hasta el fichero `ipynb` que hay que procesar y además el parámetro --target que puede tomar dos valores lab o slides. Para generar un entregable si usa el valor lab.
+El script que se encarga de generar estos entregables es `generate_handout_ipynb.py` que admite como argumento la ruta hasta el fichero `ipynb` que hay que procesar y además el parámetro --target que puede tomar dos valores labhandout o slides. Para generar un entregable se usa el valor labhandout.
 Se debe ejecutar en un entorno virtual que tenga jupyter instalado.
 
 ```
